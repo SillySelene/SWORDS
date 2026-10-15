@@ -4,12 +4,19 @@ var path = require('path');
 var logger = require('morgan');
 var dotenv = require('dotenv');
 var mongoose = require('mongoose');
+var bcrypt = require('bcryptjs');
 
 dotenv.config();
 
 var clangRouter = require('./routes/tools');
 
 var miscRouter = require('./routes/misc');
+
+var codeRouter = require('./routes/codeRoutes.js');
+
+var docRouter = require('./routes/docRoutes.js');
+
+var devRouter = require('./routes/devRoutes.js');
 
 var app = express();
 
@@ -18,6 +25,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/', miscRouter);
 app.use('/tools', clangRouter);
+app.use('/code', codeRouter);
+app.use('/doc', docRouter);
+app.use('/dev', devRouter);
+
 
 // MONGODB CONNECTION
 
@@ -37,7 +48,7 @@ mongoose.connect(uri).then( () => {
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  console.error("404");
 });
 
 // error handler
@@ -48,11 +59,10 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
 });
 
 app.listen(5000, () => {
-  console.log("check localhost:5000 or smth");
+  console.log("server is UP!");
 })
 
 module.exports = app;

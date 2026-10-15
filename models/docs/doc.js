@@ -1,13 +1,12 @@
 var mongoose = require('mongoose');
-var Tool = require('../tools.js');
-var Category = require('./docCategory.js')
 
 const docSchema = new mongoose.Schema({
   "docName" : {type: String, required:true},
-  "tool" : Tool,
+  "tool" : {type: String, required:true},
+  "category" : {type: String, required:true},
   "docText" : {type: String, required: true}, 
   
-})
+}, {timestamps:true})
 
-module.exports = mongoose.model('Schema', docSchema);
+module.exports = mongoose.model('doc', docSchema);
 

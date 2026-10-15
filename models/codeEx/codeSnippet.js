@@ -4,8 +4,9 @@ var Tool = require('../tools.js')
 const codeSnippet = new mongoose.Schema({
   "snippetName" : {type: String, required:true},
   "snippet" : {type:String, required:true},
-  "tool" : {type:String, required:true}
-})
+  "tool" : {type:String},
+  "categories" : [{type:String}],
+},{timestamps:true})
 
 
-module.export = mongoose.model('Snippet', codeSnippet);
+module.exports = mongoose.model('codeSnippet', codeSnippet);
